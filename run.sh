@@ -7,7 +7,7 @@ if [ -a "$DISK" ]; then
 	pkill python
 	pkill dd
 	killall dd
-	~pi/utils/animations.py
+	~pi/utils/starting.py
 	~pi/utils/loading.py &
 	echo "0" > .inbetween
 	(dd if=$ISO of=$DISK bs=32M status=progress 2>> .inbetween) &
