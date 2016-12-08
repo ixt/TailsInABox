@@ -1,42 +1,32 @@
 #!/usr/bin/env python
-import blinkt
-import sys
+import blinkt,sys,time
 
+oldprogress=0
 progress=0
 blinkt.set_clear_on_exit()
 
-while True:
-        # line = sys.stderr.read()
-        # if line == '':
-        #         break
-        # try:
-	# 	progress=int(line)
-	# 	print string(line)
-        # except:
-        #         pass
-	f = open('.log','r')
-	if f.read() == '':
-		break;
-	else:
-		progress=int(f.read())
-		print progress
-	blinkt.clear()
-	if progress > 0:
-		blinkt.set_pixel(0,0,255,0)
-	if progress > 13:
-		blinkt.set_pixel(1,0,255,0)
-	if progress > 26:
-		blinkt.set_pixel(2,0,255,0)
-	if progress > 39:
-		blinkt.set_pixel(3,0,255,0)
-	if progress > 52:
-		blinkt.set_pixel(4,0,255,0)
-	if progress > 65:
-		blinkt.set_pixel(5,0,255,0)
-	if progress > 78:
-		blinkt.set_pixel(6,0,255,0)
-	if progress > 91:
-		blinkt.set_pixel(7,0,255,0)
-	blinkt.show()
+def readline(f):
+	r = f.readline()
+	while r == "":
+		time.sleep(0.0001)
+		r = f.readline()
+	return r 
 
+while True:
+	f = open('.log','r')
+	# if f.read() == '':
+	# 	break;
+	# else:
+	# 	progress=int(
+	# 	if progress != oldprogress:
+	# 		print progress
+	# 		oldprogress = progress
+	progress = float(readline(f))	
+	f.close()
+
+	blinkt.clear()
+	for i in range(0,8):
+		if progress > (i*13):
+			blinkt.set_pixel(i,0,255,0)
+	blinkt.show()
 
