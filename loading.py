@@ -14,19 +14,16 @@ def readline(f):
 
 while True:
 	f = open('.log','r')
-	# if f.read() == '':
-	# 	break;
-	# else:
-	# 	progress=int(
-	# 	if progress != oldprogress:
-	# 		print progress
-	# 		oldprogress = progress
 	progress = float(readline(f))	
 	f.close()
 
 	blinkt.clear()
-	for i in range(0,8):
-		if progress > (i*13):
+	if progress < 100:
+		for i in range(0,8):
+			if progress >= (i*13):
+				blinkt.set_pixel(i,255,69,0)
+	else:
+		for i in range(0,8):
 			blinkt.set_pixel(i,0,255,0)
+	
 	blinkt.show()
-
