@@ -13,7 +13,7 @@ def readline(f):
 	return r 
 
 while True:
-	f = open('.log','r')
+	f = open('/home/pi/.log','r')
 	progress = float(readline(f))	
 	f.close()
 

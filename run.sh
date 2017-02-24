@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ISO="/home/pi/tails-i386-2.7.1.iso"
+ISO="/home/pi/tails-i386-2.10.iso"
 DISK="/dev/sda"
 size=$(stat $ISO --format=%s)
 if [ -a "$DISK" ]; then
@@ -7,8 +7,8 @@ if [ -a "$DISK" ]; then
 	pkill python
 	pkill dd
 	killall dd
-	~pi/utils/starting.py
-	~pi/utils/loading.py &
+	/home/pi/utils/starting.py
+	/home/pi/utils/loading.py &
 	echo "0" > .inbetween
 	(dd if=$ISO of=$DISK bs=32M status=progress 2>> .inbetween) &
 	progress=0
@@ -20,11 +20,11 @@ if [ -a "$DISK" ]; then
 			fprogress=$(echo "($value / $size)*100" | bc -l )
 			progress=${fprogress%.*}
 			echo $progress
-			echo $progress > .log
+			echo $progress > /home/pi/.log
 		fi
 		sleep 4
 	done 
-	echo "-1" > .log
+	echo "-1" > /home/pi/.log 
 	pkill python
-	rm .log .inbetween
+	rm /home/pi/.log .inbetween
 fi
