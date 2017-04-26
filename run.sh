@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-ISO="/home/pi/tails-i386-2.10.iso"
+ISO="/home/pi/tails-i386-2.12.iso"
 DISK="/dev/sda"
 size=$(stat $ISO --format=%s)
 if [ -a "$DISK" ]; then
