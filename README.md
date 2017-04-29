@@ -16,3 +16,6 @@ There is an included STL and OpenSCAD file that is used as a case, there are hol
 
 ## TODO:
 + Switch to using a SystemD service
+    + BlinkT daemon
+    + Download status 
++ Channel Switcher
