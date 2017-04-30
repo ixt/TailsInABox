@@ -1,0 +1,18 @@
+[Unit]
+Description=The Status daemon for TailsInABox
+After=syslog.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/TailsInABox/
+ExecStart=/home/pi/TailsInABox/readForBlinkt.py
+ExecStop=/home/pi/TailsInABox/onoff.py -c
+ExecStop=pkill readForBlinkt.py
+StandardOutput=syslog
+StardardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -2,6 +2,7 @@
 import sys,time,csv,getopt,os.path
 progress=0
 ledstatus=[[255,69,0,1],[255,69,0,1],[255,69,0,1],[255,69,0,1],[255,69,0,1],[255,69,0,1],[255,69,0,1],[255,69,0,1]]
+ledtemp=[255,69,0,1]
 
 def update():
 	os.remove('values.csv')
@@ -14,22 +15,11 @@ def clear():
 	for i in range(0,8):
 		ledstatus[i]=[0,0,0,1]
 	update()
-	
 
-def stopping():
+def flash():
 	for j in range(3):
 		for i in range(0,8):
-			ledstatus[i]=[255,0,0,1]
-		update()
-		time.sleep(0.2)
-		clear()
-		time.sleep(0.2)
-	exit()
-
-def starting():
-	for j in range(3):
-		for i in range(0,8):
-			ledstatus[i]=[0,255,0,1]
+			ledstatus[i]=ledtemp
 		update()
 		time.sleep(0.2)
 		clear()
@@ -70,21 +60,24 @@ def loading(file):
 
 def main(argv):
    try:
-      opts, args = getopt.getopt(argv,"hcsxf:",["--clear","--watch-file","--start","--stop"])
+       opts, args = getopt.getopt(argv,"hcsxf:r:g:b:l",["--red","--green","--blue","--flash","--clear","--watch-file","--start","--stop"])
    except getopt.GetoptError:
       print 'onoff.py <options>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'onoff.py -s (start animation)'
-         print 'onoff.py -x (stop animation)'
          print 'onoff.py -c (clear)'
          print 'onoff.py -f progressfile'
+         print 'onoff.py -r "red" -g "green" -b "blue" -l (flash)' 
          sys.exit()
-      elif opt in ("-s", "--start"):
-         starting()
-      elif opt in ("-x", "--stop"):
-         stopping()
+      elif opt in ("-r", "--red"):
+         ledtemp[0] = arg
+      elif opt in ("-g", "--green"):
+         ledtemp[1] = arg
+      elif opt in ("-b", "--blue"):
+         ledtemp[2] = arg
+      elif opt in ("-l", "--flash"):
+         flash()
       elif opt in ("-c", "--clear"):
          clear()
       elif opt in ("-f", "--watch-file"):
